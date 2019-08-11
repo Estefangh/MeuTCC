@@ -15,7 +15,7 @@ echo $_SESSION['msg'];
 unset($_SESSION['msg']);}
 ?>
 
-<br><br>Cadastrar um novo estabelecimento<br><br>
+<br><br>Informe aqui os dados do seu estabelecimento que nós analisaremos os dados e possivelmente criaremos o seu cadastro!<br><br>
 	<p>Nome completo: <input type="text" name="nome" required><br>
     <p>E-mail: <input type="e-mail" name="email" required><br>
     <p>Telefone: <input type="mumber" name="telefone" required><br>
