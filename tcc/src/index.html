@@ -4,26 +4,23 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- PEGA O ARQUIVO CSS DO BOOTSTRAP E O MEU-->
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/styles.css">  
-
- <script src="./js/jquery.min.js"></script>
-    <script src="./js/popper.min.js"></script> 
-    <script src="./js/bootstrap.min.js"></script>
-
+      <script src="./js/jquery.min.js"></script>
+      <script src="./js/popper.min.js"></script> 
+      <script src="./js/bootstrap.min.js"></script>
     <title>TCC Estefan</title>
   </head>
   <body>
     <!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">  ERRO É O FIXED-TOP-->
       <!--teste sem o fixed tava lg-->
      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">IPlay</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">IPlay</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+              <span class="navbar-toggler-icon"></span>
+            </button>
       <div class="collapse navbar-collapse" id="navbarSite">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
@@ -45,108 +42,46 @@
               <a class="nav-link" href="#">Login</a>
           </li>
 <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalLogin" data-whatever="@getbootstrap">Login</button>-->
-<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insira seus dados de login</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form name="login" action="../src/crudUsuarios/Controller/usuario.php" method="post">
-          <div class="form-group">
-            <label for="usuario" class="col-form-label">Nome de usuário ou e-mail:</label>
-            <input type="text" name="login" class="form-control" id="user" required>
-          </div>
-         <div class="form-group">
-            <label for="senha" class="col-form-label">Senha:</label>
-            <input type="text" name="senha" class="form-control" id="senha" required>
-          </div>
-          <div class="row" class="modal-footer">
-              
-          <div class="col-auto mr-auto">  <p><a href="../src/crudUsuarios/view/cadastra.php">Não possui uma conta? Cadastre-se</a> </div>
-              
-              
-        <div class="col-auto"> <button type=submit" name="acao" value="Logar" class="btn btn-secondary">Entrar</button> </div>
-              
-       <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-      </div>
-    </form>
-      </div>
-    
-    </div>
-  </div>
-</div>
-
-
-
-          <!-- TESTE DE MODAL--> <!--
-<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cadastre um produto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Insira seus dados de login</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                  </button>
+                </div>
+                  <div class="modal-body">
+                    <form name="login" action="../src/crudUsuarios/Controller/usuario.php" method="post">
+                      <div class="form-group">
+                        <label for="usuario" class="col-form-label">Nome de usuário ou e-mail:</label>
+                        <input type="text" name="login" class="form-control" id="user" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="senha" class="col-form-label">Senha:</label>
+                        <input type="text" name="senha" class="form-control" id="senha" required>
+                      </div>
+                      <div class="row" class="modal-footer">
+                      <div class="col-auto mr-auto">  <p><a href="../src/crudUsuarios/view/cadastra.php">Não possui uma conta? Cadastre-se</a> </div>  
+                      <div class="col-auto"> <button type=submit" name="acao" value="Logar" class="btn btn-secondary">Entrar</button> </div>
+                      <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                      </div>
+                    </form>
+                  </div>
+              </div>
             </div>
-            <form action="../Controller/Produto.php" method="POST">
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="categoria" class="col-sm-2 col-form-label">Categoria</label>
-                        <div class="col-sm-10">
-                          <select class="form-control" name="categoria" id="categoria">
-                <option>Categoria</option>
-                <option>Fruta</option>
-                <option>Verdura</option>
-                <option>Legume</option>
-                <option>!</option>
-                <option>?</option>
-                <option>.</option>
-              </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="preco" class="col-sm-2 col-form-label">Preço</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="preco" id="preco" placeholder="Preço"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success" name="acao" value="Cadastrar">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>  -->
-          <!-- TESTE DE MODAL-->
-
+          </div>
         </ul>
       </div>
      </nav>
     </div>
-
-<!--    <img src="../assets/quadrafutsal2.jpg" id="imgTeaser"> -->
-        <header class="masthead text-center text-white d-flex">
-       <div class="container my-auto">
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <h1 class="text-uppercase">
-            
               <strong><br></strong>
-            
             </h1>
-            
           </div>
           <div class="col-lg-8 mx-auto">
             <p class="text-faded mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
@@ -154,7 +89,7 @@
           </div>
         </div>
       </div>
-     </header>
+    </header>
 
          <!-- Services -->
     <section id="services">
@@ -258,21 +193,10 @@
         </div>
       </div>
     </section>
-
       <div class="copyright py-4 text-center text-black">
       <div class="container">
         <small>Copyright &copy; Estefan Hense 2019</small>
       </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <!--
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/popper.min.js"></script> 
-    <script src="./js/bootstrap.min.js"></script>
-
--->
   </body>
 </html>
