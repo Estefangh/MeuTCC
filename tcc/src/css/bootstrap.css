@@ -2851,7 +2851,8 @@ input[type="button"].btn-block {
   border: 1px solid transparent;
   border-radius: 0.25rem; }
   .navbar-toggler:hover, .navbar-toggler:focus {
-    text-decoration: none; }
+    text-decoration: none; 
+    outline: none;}
   .navbar-toggler:not(:disabled):not(.disabled) {
     cursor: pointer; }
 

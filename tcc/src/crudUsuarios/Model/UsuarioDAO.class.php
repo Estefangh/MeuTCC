@@ -215,7 +215,7 @@ private $tabela; //nome da tabela
   			 print $e->getMessage();
 		}
 	}
-			
+	
 	/*
 	public function logar($usuario,$senha){
 		try{
