@@ -4,14 +4,9 @@ session_start();
 include_once "../Model/Usuario.class.php";
 include_once "../Model/UsuarioDAO.class.php";
 
-
 $usuarioDAO=new UsuarioDAO();
-
-/**************
-* Altera usuário logado
-***************/	
+/*************** Altera usuário logado ***************/	
 if (isset($_GET['acao'])&&($_GET['acao']=="alterar")){
-	
 	$id_usuario=$_SESSION['id_usuario'];
 		//echo "ola".$id_usuario;
 		//die();
@@ -29,13 +24,10 @@ if (isset($_GET['acao'])&&($_GET['acao']=="alterar")){
 		$endereco = $listar[$i]['endereco'];
 		$login = $listar[$i]['login'];
 		$senha = $listar[$i]['senha'];
-		
 	}
 	 include "../view/alterausuario.php";
 }
-/********************
-* cadastra novo usuário
-********************/
+/********************* cadastra novo usuário ********************/
 elseif (isset($_POST['acao']) && ($_POST['acao']== "Cadastrar"))
 	{
 		$nome = $_POST['nome'];
@@ -48,29 +40,25 @@ elseif (isset($_POST['acao']) && ($_POST['acao']== "Cadastrar"))
 		$senha = md5($_POST['senha']);
 		$status = 1;
 	//	$imagem = $_POST['imagem'];
-		// TESTE DE INCLUSÃO DE IMAGEM
+		//INCLUSÃO DE IMAGEM
 		$limitar_ext="sim";
-			$extensoes_validas=array(".gif",".jpg",".jpeg",".bmp",".GIF",".JPG",".JPEG",".BMP",);
-			$caminho="../view/imagens";
-			$limitar_tamanho="não";
-			$tamanho_bytes="200000";
-			$sobrescrever="não";
-			
-			$nome_arquivo=$_FILES['arquivo']['name'];
-			$tamanho_arquivo=$_FILES['arquivo']['size'];
-			$arquivo_temporario=$_FILES['arquivo']['tmp_name'];
+		$extensoes_validas=array(".gif",".jpg",".jpeg",".bmp",".GIF",".JPG",".JPEG",".BMP",);
+		$caminho="../view/imagens";
+		$limitar_tamanho="não";
+		$tamanho_bytes="200000";
+		$sobrescrever="não";	
+		$nome_arquivo=$_FILES['arquivo']['name'];
+		$tamanho_arquivo=$_FILES['arquivo']['size'];
+		$arquivo_temporario=$_FILES['arquivo']['tmp_name'];
 			
 			if (!empty($nome_arquivo)) {
 				if($sobrescrever=="não" && file_exists("$caminho/$nome_arquivo"))
 					die("Arquivo já existe");
-	
 				if($limitar_tamanho=="sim" && ($tamanho_arquivo > $tamanho_bytes))
 					die("Arquivo deve ter o no máximo $tamanho_bytes bytes");
-		
 				$ext = strrchr($nome_arquivo,'.');
 				if (($limitar_ext == "sim") && !in_array($ext,$extensoes_validas))
 					die("Extensão de arquivo inválida para upload");
-			
 				if (move_uploaded_file($arquivo_temporario, "../view/imagens/$nome_arquivo")) {
 					echo " Upload do arquivo: ". $nome_arquivo." foi concluído com sucesso";
 				} else {
@@ -79,8 +67,7 @@ elseif (isset($_POST['acao']) && ($_POST['acao']== "Cadastrar"))
 			} else {
 				die("Selecione o arquivo a ser enviado");
 			}
-			// ATÉ AQUI O TESTE DE INCLUSÃO DE IMAGEM
-
+			//INCLUSÃO DE IMAGEM
 
 		$usuario = new Usuario();
 		$usuario->setNome($nome);
@@ -97,20 +84,17 @@ elseif (isset($_POST['acao']) && ($_POST['acao']== "Cadastrar"))
 	//var_dump ($usuarioDAO);
 	//die();
 			$retorno=$usuarioDAO->inserir($usuario);
-			
 				if($retorno)
 				{
 					echo "Você se cadastrou";
 					header ('Location:/tcc/src/index.html');
-					//header ('Location:../index.html');
 				}
 				else
 				{
 					header ('Location: ../view/cadastra.php');
 				}
 	}
-
-//salvar alterações de usuário logado
+//***** salvar alterações de usuário logado *****
 elseif (isset($_POST['acao']) && ($_POST['acao']== "Salvar Dados"))
 {
 	$id_usuario=$_SESSION['id_usuario'];
@@ -135,24 +119,20 @@ elseif (isset($_POST['acao']) && ($_POST['acao']== "Salvar Dados"))
 	$usuario->setSenha($senha);
 	$usuario->setStatus($status);
 	$usuario->setId_Usuario($id_usuario);
-
 	//var_dump ($usuarioDAO);
 	//die();
-
-	if($usuarioDAO->alterar($usuario))
-	{
-		echo "Usuário alterado com sucesso";	
+		if($usuarioDAO->alterar($usuario))
+		{
+			echo "Usuário alterado com sucesso";	
+		}
+		else
+		{
+			echo "Erro ao inserir";
+			print_r($usuario);
+			die();
+		}
 	}
-	else
-	{
-		echo "Erro ao inserir";
-		print_r($usuario);
-		die();
-	}
-}
-/**************************
-* Deleta usuário - altera o status para 0
-***************************/
+/***** Deleta usuário - altera o status para *****/
 elseif (isset($_GET['acao']) && ($_GET['acao']== "Deletar"))
 {
 	$id_usuario=$_SESSION['id_usuario'];
@@ -174,9 +154,7 @@ elseif (isset($_GET['acao']) && ($_GET['acao']== "Deletar"))
 		die();
 	}
 }
-/****************************
-* Lista todos os usuários
-*****************************/
+/***** Lista todos os usuários *****/
 elseif (isset($_GET['acao']) && ($_GET['acao'] == "Listar"))
 {
 	$listar=$usuarioDAO->listar('ORDER BY nome');
@@ -196,17 +174,14 @@ elseif (isset($_GET['acao']) && ($_GET['acao'] == "Listar"))
 		echo "<img src='../View/imagens/".$listar[$i]['imagem']."' height ='100px'>";
 	}
 }
-
-/**************************
-* Faz o login do usuário
-***************************/
+/***** Faz o login do usuário *****/
 elseif (isset($_POST['acao']) && ($_POST['acao']=="Logar"))
 {
 	$login = $_POST['login'];
 	$senha = $_POST['senha'];
 
 	if($usuarioDAO->logar($login,$senha)){
-		//esse aqui é o caminho correto
+
 		header ('Location:../view/logado.php');
 	}
 	else{
@@ -221,8 +196,8 @@ elseif (isset($_GET['acao'])&&($_GET['acao']=="logout")){
 	//die();
 	//o codigo abaixo voltava para uma determinada pag dps do logout
 	//header ('Location: ../index.html');
-	header ('Location: /tcc/src/index.html');
+	header ('Location: /MeuTCC/tcc/src/index.html');
 }	
 ?>
-<!--	<p><a href="../view/logado.php">Voltar</a> -->
-	<p><a href="../view/login.php">Voltar</a>
+	<p><a href="../view/logado.php">Voltar</a> 
+<!--	<p><a href="../view/login.php">Voltar</a> --> 
