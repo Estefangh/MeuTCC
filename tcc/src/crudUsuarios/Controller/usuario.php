@@ -179,14 +179,12 @@ elseif (isset($_POST['acao']) && ($_POST['acao']=="Logar"))
 {
 	$login = $_POST['login'];
 	$senha = $_POST['senha'];
-
-	if($usuarioDAO->logar($login,$senha)){
-
-		header ('Location:../view/logado.php');
-	}
-	else{
-		echo "Não foi possivel logar... Tente novamente.";
-	}
+		if($usuarioDAO->logar($login,$senha)){
+			header ('Location:../view/logado.php');
+		}
+		else{
+			echo "Não foi possivel logar... Tente novamente.";
+		}
 }
 elseif (isset($_GET['acao'])&&($_GET['acao']=="logout")){
 	unset ($_SESSION['id_usuario']);
