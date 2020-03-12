@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $message = $_POST['message'];
+<?php
 
-        require 'vendor/autoload.php';
+if(isset($_POST['email']) && !empty($_POST['email'])){
 
-        $from = new SendGrid\Email(null, "tefagh@hotmail.com");
-        $subject = "Mensagem de contato";
-        $to = new SendGrid\Email(null, "estefan.hense@possible.com");
-        $content = new SendGrid\Content("text/html", "Olá Estefan, <br><br>Nova mensagem de contato
-        <br><br>Nome: $name<br>Email: $email<br>Telefone: $phone<br>Mensagem: $message");
-        $mail = new SendGrid\Mail($from, $subject, $to, $content);
-        
-        //Necessário inserir a chave
-        $apiKey = 'SG.wVZdgdfM6eQdaKsuvCN5Iddg.Q6n-9PmspvMAIymVjj-4578frrhkERjtrt';
-        $sg = new \SendGrid($apiKey);
+$nome = addslashes($_POST['name']);
+$email = addslashes($_POST['email']);
+$phone = addslashes($_POST['phone']);
+$mensagem = addslashes($_POST['message']);
 
-        $response = $sg->client->mail()->send()->post($mail);
-        echo "Mensagem enviada com sucesso";
-        
-        ?>
-    </body>
-</html>
+$to = "estefan.hense@possible.com";
+$subject = "Contato - iPlay Quadras";
+$body = "Nome: ".$nome. "\r\n".
+        "Email: ".$email. "\r\n".
+        "Telefone: ".$phone. "\r\n".
+        "Mensagem: ".$mensagem;
+$header = "From: tefagh@hotmail.com"."\r\n".
+          "Reply-To:".$email."\e\n".
+          "X=Mailer:PHP/".phpversion();
+
+if(mail($to, $subject, $body, $header)){
+    echo("Email enviado com sucesso!");
+}else{
+    echo("O Email não pode ser enviado");
+    }
+}
+?>

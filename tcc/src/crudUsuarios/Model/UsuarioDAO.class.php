@@ -69,22 +69,16 @@ private $tabela; //nome da tabela
 					else{
 						$_SESSION['msg']= "Erro ao inserir no BD";
 						return false;
-						
-						
 					}
 				}
 			}
 		}
-			
-			
 		catch (PDOException  $e) {
   			 print $e->getMessage();
 			}
 	}
-    
 	///testa se existe algum registro que já esteja utilizando o login
 	public function existe($login){
-		
 		$novologin=$usuario->getLogin();
 			try{
 				$resultado=$this->pdo->prepare('SELECT * FROM usuarios WHERE login=$login');			
@@ -98,13 +92,9 @@ private $tabela; //nome da tabela
 			}catch (PDOException  $e) {
 				 print $e->getMessage();
 				}		
-		
 	}
-	
-	
 	//altera um registro na tabela usuário      
     public function alterar($usuario) {
-		
 		$nome=$usuario->getNome();
 		$email=$usuario->getEmail();
 		$telefone=$usuario->getTelefone();
@@ -118,9 +108,7 @@ private $tabela; //nome da tabela
 		
 		try{			
 			$resultado=$this->pdo->prepare('UPDATE usuarios SET nome=:nome, email=:email, telefone=:telefone, dtnasc=:dnasc, cpf=:cpf, endereco=:endereco, login=:login, senha=:senha, status=:status WHERE id_usuario=:id_usuario ');
-			
 			//UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
-		  
 			$resultado->bindValue(':nome',$nome);
 			$resultado->bindValue(':email',$email);		
 			$resultado->bindValue(':telefone',$telefone);
@@ -142,80 +130,60 @@ private $tabela; //nome da tabela
 					return false;
 				}
 			}
-			
-			
 		}catch (PDOException  $e) {
   			 print $e->getMessage();
 			}
 	}
-	
-	
 	//Deleta usuário - altera um registro na tabela usuário      
     public function deleta($usuario) {
-		
-		
 		$status=$usuario->getStatus();
 		$id_usuario=$usuario->getId_Usuario();
-		
 		try{
 			$resultado=$this->pdo->prepare('UPDATE usuarios SET status=:status WHERE id_usuario=:id_usuario ');
-			
-			//UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
-		  
-			
+			//UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;		
 			$resultado->bindValue(':status',$status);
 			$resultado->bindValue(':id_usuario',$id_usuario);
-			
 			$dados = $resultado->execute();//retorna true se incluiu
 			if($dados){
 				if($resultado->rowCount()>=1){// testo se houve alguma linha alterada?
 				//return true; //se deixar p o controller decidir o q via fazer
 				session_destroy();
 				unset($_SESSION['id_usuario']);
-				unset($_SESSION['nome']);
-						
+				unset($_SESSION['nome']);	
 				header ('Location: ../view/login.php');//optei p direcionar daqui a carga p logado.php
 				}
 				else{
 					return false;
 				}
 			}
-			
-			
 		}catch (PDOException  $e) {
   			 print $e->getMessage();
 			}
 	}
-  
 	//logar
 	public function logar($login,$senha){
 		try{
 			$resultado=$this->pdo->prepare('SELECT id_usuario, nome FROM usuarios WHERE login=:login and senha=:senha and status=1');
 			$resultado->bindValue(':login',$login);
 			$resultado->bindValue(':senha',$senha);
-			
-		
-			if($resultado->execute())
-			{
-			$linhas=$resultado->rowCount();
-
-			if($linhas > 0){
-				
-				$registro=$resultado->fetch();
-				var_dump($registro);
-				$_SESSION['id_usuario']=$registro['id_usuario'];
-				$_SESSION['nome']=$registro['nome'];
-				return true;
-			}	
-			else
-			{ return false;}
+			if($resultado->execute()) {
+				$linhas=$resultado->rowCount();
+				if($linhas > 0) {
+					$registro=$resultado->fetch();
+					var_dump($registro);
+					$_SESSION['id_usuario']=$registro['id_usuario'];
+					$_SESSION['nome']=$registro['nome'];
+					return true;
+				}	
+				else {
+					 return false;
+				}
 			}			
 		}
 		catch (PDOException  $e) {
   			 print $e->getMessage();
 		}
 	}
-	
 	/*
 	public function logar($usuario,$senha){
 		try{
@@ -245,30 +213,23 @@ private $tabela; //nome da tabela
 				//$resultado=$this->pdo->prepare('SELECT id_usuario, nome FROM usuarios WHERE login=:login and senha=:senha');
 				//$sql = "SELECT * FROM $this->tabela " . $complemento;
 				$resultado=$this->pdo->prepare('SELECT * FROM usuarios '.$complemento);
-				
-				
 				$resultado->execute();
-				
-				if($resultado->rowCount()>=1){ // testo se encontrou alguma linha 
+				if($resultado->rowCount()>=1) { // testo se encontrou alguma linha 
 					return $resultado->fetchAll();
 				}
-			}	catch (PDOException  $e) {
-					 print $e->getMessage();
-				}			
+			}	
+			catch (PDOException  $e) {
+				 print $e->getMessage();
+			}			
 		}
-        
-		
-        
           }
 
 	//deleta usuário por cd_usuario
     /*public function excluir($cd_usuario) {
-
         $sql = "delete from $this->tabela where id_usuario='$id_usuario'";
         $retorno = pg_query($sql);
         return $retorno;
     }*/
-
     //retornar código do ultimo usuario    
  /*   public function retornaUltimo() {
         $sql = "select max(id) FROM $this->tabela";
