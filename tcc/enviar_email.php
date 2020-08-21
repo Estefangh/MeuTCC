@@ -7,7 +7,7 @@ $email = addslashes($_POST['email']);
 $phone = addslashes($_POST['phone']);
 $mensagem = addslashes($_POST['message']);
 
-$to = "estefan.hense@possible.com";
+$to = "estefan.hense@gmail.com";
 $subject = "Contato - iPlay Quadras";
 $body = "Nome: ".$nome. "\r\n".
         "Email: ".$email. "\r\n".
